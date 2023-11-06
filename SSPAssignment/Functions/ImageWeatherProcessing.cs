@@ -3,12 +3,12 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
-namespace SSPAssignment
+namespace SSPAssignment.Functions
 {
-    public class Function1
+    public class ImageWeatherProcessing
     {
-        [FunctionName("Function1")]
-        public void Run([QueueTrigger("imagequeue", Connection = "AzureWebJobsStorage")]string myQueueItem, ILogger log)
+        [FunctionName("ImageWeatherProcessing")]
+        public void Run([QueueTrigger("myqueue-items", Connection = "")]string myQueueItem, ILogger log)
         {
             log.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
         }
