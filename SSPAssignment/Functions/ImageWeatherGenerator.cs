@@ -35,8 +35,6 @@ namespace SSPAssignment.Functions
             string content = await response.Content.ReadAsStringAsync();
             WeatherDataResult weatherData = JsonConvert.DeserializeObject<WeatherDataResult>(content);
           
-            
-            
 
             return new OkObjectResult(new {weatherData});
 
