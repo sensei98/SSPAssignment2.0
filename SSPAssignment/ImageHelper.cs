@@ -20,19 +20,20 @@ namespace SSPAssignment
 
             image.Clone(img =>
             {
-                var textGraphicsOptions = new TextGraphicsOptions()
-                {
-                    TextOptions = {
-                            WrapTextWidth = image.Width-10
-                    }
-                };
+                //var textGraphicsOptions = new TextGraphicsOptions()
+                //{
+                //    TextOptions = {
+                //            WrapTextWidth = image.Width-10
+                //    }
+                //}; 
+                //not recognized by sixlabors
 
                 foreach (var (text, (x, y), fontSize, colorHex) in texts)
                 {
                     var font = SystemFonts.CreateFont("Verdana", fontSize);
                     var color = Rgba32.ParseHex(colorHex);
 
-                    img.DrawText(textGraphicsOptions, text, font, color, new PointF(x, y));
+                    img.DrawText(text, font, color, new PointF(x, y));
                 }
             })
                 .SaveAsPng(memoryStream);

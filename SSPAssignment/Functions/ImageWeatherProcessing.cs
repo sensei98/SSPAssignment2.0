@@ -23,6 +23,8 @@ using System.Reflection.Metadata;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using JsonException = System.Text.Json.JsonException;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace SSPAssignment.Functions
 {
@@ -31,8 +33,14 @@ namespace SSPAssignment.Functions
         private static readonly HttpClient httpClient = new HttpClient();
 
         [FunctionName("ImageWeatherProcessing")]
-        public static async Task Run([QueueTrigger("imagequeue", Connection = "AzureWebJobsStorage")] string myQueueItem, ILogger log)
+
+        public static async Task Run([QueueTrigger("imagequeue", Connection = "AzureWebJobsStorage")] string myQueueItem,
+            [Queue("imageeditedqueue")] IAsyncCollector<string> secondQueueMessages, ILogger log)
         {
+            Random rand = new Random();
+            List<StationMeasurements> measurements = await GetWeatherData();
+            StationMeasurements station = new StationMeasurements();
+
             try
             {
                 // Obtain fresh images from Unsplash API
@@ -45,8 +53,17 @@ namespace SSPAssignment.Functions
                 var containerName = Environment.GetEnvironmentVariable("BlobContainerName");
                 var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
+
                 foreach (var imageUrl in await imageUrls)
                 {
+                    if (measurements.Count > 0)
+                    {
+                        int randomIndex = rand.Next(0, measurements.Count);
+                        StationMeasurements stationMeasurements = measurements[randomIndex];
+                        measurements.RemoveAt(randomIndex);
+                        station = stationMeasurements;
+                    }
+
                     using (var httpClient = new HttpClient())
                     {
                         // Fetch the image bytes from the URL
@@ -64,10 +81,22 @@ namespace SSPAssignment.Functions
                             await blobClient.UploadAsync(stream, true);
                         }
 
+                        var imagedetails = new WeatherNameAndImage
+                        {
+                            imageName = imageFileName,
+                            stationMeasurements = station
+                        };
+                        string stationJson = JsonConvert.SerializeObject(imagedetails);
+
+
+
                         // Log a message indicating the image was saved to Blob Storage
                         log.LogInformation($"Image '{imageFileName}' saved to Blob Storage.");
+                        await secondQueueMessages.AddAsync(stationJson);
+
                     }
                 }
+                
             }
             catch (Exception e)
             {
@@ -85,7 +114,7 @@ namespace SSPAssignment.Functions
                 throw new InvalidOperationException("Unsplash API access key is not configured.");
             }
 
-            return await UnsplashJsonResponseAsync(unsplashAccessKey, 2); //number to configure images
+            return await UnsplashJsonResponseAsync(unsplashAccessKey, 40); //number to configure images
         }
 
         private static async Task<string[]> UnsplashJsonResponseAsync(string accessKey, int count)
@@ -107,7 +136,7 @@ namespace SSPAssignment.Functions
 
                     if (images != null && images.Any())
                     {
-                        return images.Select(image => image.urls.full).ToArray();
+                        return images.Select(image => image.urls.regular).ToArray();
                     }
                     else
                     {
@@ -126,17 +155,16 @@ namespace SSPAssignment.Functions
                 }
             }
         }
-        private async Task<String> GetWeatherData()
+        private static async Task<List<StationMeasurements>> GetWeatherData()
         {
             string weatherDataUrl = "https://data.buienradar.nl/2.0/feed/json";
             HttpClient httpClient = new HttpClient();
             var response = await httpClient.GetAsync(weatherDataUrl);
             string content = await response.Content.ReadAsStringAsync();
             WeatherDataResult weatherData = JsonConvert.DeserializeObject<WeatherDataResult>(content);
-            return weatherData.actual.ToString();
+            List<StationMeasurements> measurements = weatherData.actual.stationmeasurements;
 
+            return measurements;
         }
-
-
     }
 }

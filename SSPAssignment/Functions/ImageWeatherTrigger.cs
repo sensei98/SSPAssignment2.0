@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Azure;
+using Azure.Storage.Blobs;
+using System.Collections.Generic;
 
 namespace SSPAssignment.Functions
 {
@@ -15,18 +17,23 @@ namespace SSPAssignment.Functions
     {
         [FunctionName("ImageWeatherTrigger")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, [Queue("imagequeue", Connection = "AzureWebJobsStorage")] IAsyncCollector<string> queue, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, [Queue("imagequeue", Connection = "AzureWebJobsStorage")] IAsyncCollector<string> queue,
+             ILogger log)
         {
             try
             {
                 
                 string jobId = Guid.NewGuid().ToString();
                 await queue.AddAsync($"Processing Images with id {jobId}");
+                string link = "https://sspassignment641496.azurewebsites.net/api/GetFinalImageList?";
+
                 var response = new
                 {
                     JobId = jobId,
-                    Message = $"Image processing job with id {jobId} queue running. Check storage blob"
+                    Message = $"Image processing job with id {jobId} queue running. Check storage blob",
+                    Endpoint = $"Click <a href=\"{link}\">here</a> to go to the endpoint to list the editedimages."
                 };
+
                 return new OkObjectResult(response);
             }
             catch(Exception ex)
@@ -36,5 +43,6 @@ namespace SSPAssignment.Functions
             }
            
         }
+
     }
 }
