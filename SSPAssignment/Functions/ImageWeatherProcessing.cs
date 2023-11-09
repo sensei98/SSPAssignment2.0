@@ -114,7 +114,7 @@ namespace SSPAssignment.Functions
                 throw new InvalidOperationException("Unsplash API access key is not configured.");
             }
 
-            return await UnsplashJsonResponseAsync(unsplashAccessKey, 40); //number to configure images
+            return await UnsplashJsonResponseAsync(unsplashAccessKey, 40); // +- 40 depending on return from weather data
         }
 
         private static async Task<string[]> UnsplashJsonResponseAsync(string accessKey, int count)

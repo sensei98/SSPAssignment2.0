@@ -1,0 +1,27 @@
+{
+	"info": {
+		"_postman_id": "38f634a2-9453-4c97-9264-25ec1033a2c2",
+		"name": "SSPAssignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "16405907",
+		"_collection_link": "https://vrefsolutions.postman.co/workspace/My-Workspace~66c9c78c-c12d-435a-8c05-7c4ad6f9b831/collection/16405907-38f634a2-9453-4c97-9264-25ec1033a2c2?action=share&source=collection_link&creator=16405907"
+	},
+	"item": [
+		{
+			"name": "ImageWeatherTrigger",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GetFinalImageList",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

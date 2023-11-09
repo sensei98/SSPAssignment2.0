@@ -31,7 +31,7 @@ namespace SSPAssignment.Functions
                 {
                     JobId = jobId,
                     Message = $"Image processing job with id {jobId} queue running. Check storage blob",
-                    Endpoint = $"Click <a href=\"{link}\">here</a> to go to the endpoint to list the editedimages."
+                    Endpoint = $"Click {link} here to go to the endpoint to list the editedimages."
                 };
 
                 return new OkObjectResult(response);
