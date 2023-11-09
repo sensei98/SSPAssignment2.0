@@ -43,10 +43,8 @@ namespace SSPAssignment.Functions
 
             try
             {
-                // Obtain fresh images from Unsplash API
                 var imageUrls = GetImagesUnsplashAPIAsync();
 
-                // Initialize BlobServiceClient with your connection string
                 var blobServiceClient = new BlobServiceClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"));
 
                 // Create a container client to store the processed images
@@ -74,8 +72,6 @@ namespace SSPAssignment.Functions
 
                         // Get a reference to the blob in the container
                         var blobClient = containerClient.GetBlobClient(imageFileName);
-
-                        // Upload the image bytes to Blob Storage
                         using (var stream = new MemoryStream(imageBytes))
                         {
                             await blobClient.UploadAsync(stream, true);
@@ -88,8 +84,6 @@ namespace SSPAssignment.Functions
                         };
                         string stationJson = JsonConvert.SerializeObject(imagedetails);
 
-
-
                         // Log a message indicating the image was saved to Blob Storage
                         log.LogInformation($"Image '{imageFileName}' saved to Blob Storage.");
                         await secondQueueMessages.AddAsync(stationJson);
@@ -100,7 +94,6 @@ namespace SSPAssignment.Functions
             }
             catch (Exception e)
             {
-                // Log an error message for any exceptions that occur during image processing
                 log.LogError(e, "An error occurred while processing images.");
             }
         }
