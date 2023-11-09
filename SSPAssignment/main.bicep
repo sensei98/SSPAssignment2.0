@@ -184,7 +184,7 @@ resource sites_sspassignment641496_name_resource 'Microsoft.Web/sites@2022-09-01
     clientCertEnabled: false
     clientCertMode: 'Required'
     hostNamesDisabled: false
-    customDomainVerificationId: '878EE5489481B1D7EC54EB94477651D546CDCBE65E76038F72ADDE173BD590D7'
+
     containerSize: 1536
     dailyMemoryTimeQuota: 0
     httpsOnly: true
@@ -218,16 +218,6 @@ resource sites_sspassignment641496_name_web 'Microsoft.Web/sites/config@2022-09-
   location: 'West Europe'
   properties: {
     numberOfWorkers: 1
-    defaultDocuments: [
-      'Default.htm'
-      'Default.html'
-      'Default.asp'
-      'index.htm'
-      'index.html'
-      'iisstart.htm'
-      'default.aspx'
-      'index.php'
-    ]
     netFrameworkVersion: 'v6.0'
     requestTracingEnabled: false
     remoteDebuggingEnabled: false
@@ -294,12 +284,7 @@ resource sites_sspassignment641496_name_14ee20f9e4a44af482e23783f4f16c2c 'Micros
   location: 'West Europe'
   properties: {
     status: 4
-    author_email: 'N/A'
-    author: 'N/A'
-    deployer: 'ZipDeploy'
-    message: 'Created via a push deployment'
-    start_time: '2023-11-09T13:54:03.5015396Z'
-    end_time: '2023-11-09T13:54:05.3058948Z'
+
     active: true
   }
 }
@@ -310,12 +295,7 @@ resource sites_sspassignment641496_name_4d8e596e000a44b0b4db23ba1cc6403d 'Micros
   location: 'West Europe'
   properties: {
     status: 4
-    author_email: 'N/A'
-    author: 'N/A'
-    deployer: 'ZipDeploy'
-    message: 'Created via a push deployment'
-    start_time: '2023-11-09T13:34:20.3408811Z'
-    end_time: '2023-11-09T13:34:21.9525247Z'
+
     active: false
   }
 }
@@ -340,66 +320,28 @@ resource sites_sspassignment641496_name_GetFinalImageList 'Microsoft.Web/sites/f
   parent: sites_sspassignment641496_name_resource
   name: 'GetFinalImageList'
   location: 'West Europe'
-  properties: {
-    script_root_path_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/GetFinalImageList/'
-    script_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/bin/SSPAssignment.dll'
-    config_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/GetFinalImageList/function.json'
-    test_data_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/data/Functions/sampledata/GetFinalImageList.dat'
-    href: 'https://sspassignment641496.azurewebsites.net/admin/functions/GetFinalImageList'
-    config: {}
-    invoke_url_template: 'https://sspassignment641496.azurewebsites.net/api/getfinalimagelist'
-    language: 'DotNetAssembly'
-    isDisabled: false
-  }
+  properties: {}
 }
 
 resource sites_sspassignment641496_name_ImageWeatherProcessing 'Microsoft.Web/sites/functions@2022-09-01' = {
   parent: sites_sspassignment641496_name_resource
   name: 'ImageWeatherProcessing'
   location: 'West Europe'
-  properties: {
-    script_root_path_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/ImageWeatherProcessing/'
-    script_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/bin/SSPAssignment.dll'
-    config_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/ImageWeatherProcessing/function.json'
-    test_data_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/data/Functions/sampledata/ImageWeatherProcessing.dat'
-    href: 'https://sspassignment641496.azurewebsites.net/admin/functions/ImageWeatherProcessing'
-    config: {}
-    language: 'DotNetAssembly'
-    isDisabled: false
-  }
+  properties: {}
 }
 
 resource sites_sspassignment641496_name_ImageWeatherTrigger 'Microsoft.Web/sites/functions@2022-09-01' = {
   parent: sites_sspassignment641496_name_resource
   name: 'ImageWeatherTrigger'
   location: 'West Europe'
-  properties: {
-    script_root_path_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/ImageWeatherTrigger/'
-    script_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/bin/SSPAssignment.dll'
-    config_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/ImageWeatherTrigger/function.json'
-    test_data_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/data/Functions/sampledata/ImageWeatherTrigger.dat'
-    href: 'https://sspassignment641496.azurewebsites.net/admin/functions/ImageWeatherTrigger'
-    config: {}
-    invoke_url_template: 'https://sspassignment641496.azurewebsites.net/api/imageweathertrigger'
-    language: 'DotNetAssembly'
-    isDisabled: false
-  }
+  properties: {}
 }
 
 resource sites_sspassignment641496_name_WriteWeatherDataToImage 'Microsoft.Web/sites/functions@2022-09-01' = {
   parent: sites_sspassignment641496_name_resource
   name: 'WriteWeatherDataToImage'
   location: 'West Europe'
-  properties: {
-    script_root_path_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/WriteWeatherDataToImage/'
-    script_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/bin/SSPAssignment.dll'
-    config_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/site/wwwroot/WriteWeatherDataToImage/function.json'
-    test_data_href: 'https://sspassignment641496.azurewebsites.net/admin/vfs/data/Functions/sampledata/WriteWeatherDataToImage.dat'
-    href: 'https://sspassignment641496.azurewebsites.net/admin/functions/WriteWeatherDataToImage'
-    config: {}
-    language: 'DotNetAssembly'
-    isDisabled: false
-  }
+  properties: {}
 }
 
 resource sites_sspassignment641496_name_sites_sspassignment641496_name_azurewebsites_net 'Microsoft.Web/sites/hostNameBindings@2022-09-01' = {
@@ -483,11 +425,7 @@ resource storageAccounts_sspassignmentstorage_name_default_imageswithweatherdata
 resource storageAccounts_sspassignmentstorage_name_default_sspassignment20231108202542 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-01-01' = {
   parent: Microsoft_Storage_storageAccounts_fileServices_storageAccounts_sspassignmentstorage_name_default
   name: 'sspassignment20231108202542'
-  properties: {
-    accessTier: 'TransactionOptimized'
-    shareQuota: 5120
-    enabledProtocols: 'SMB'
-  }
+  properties: {}
   dependsOn: [
 
     storageAccounts_sspassignmentstorage_name_resource
@@ -497,11 +435,7 @@ resource storageAccounts_sspassignmentstorage_name_default_sspassignment20231108
 resource storageAccounts_sspassignmentstorage_name_default_sspassignment641496 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-01-01' = {
   parent: Microsoft_Storage_storageAccounts_fileServices_storageAccounts_sspassignmentstorage_name_default
   name: 'sspassignment641496'
-  properties: {
-    accessTier: 'TransactionOptimized'
-    shareQuota: 5120
-    enabledProtocols: 'SMB'
-  }
+  properties: {}
   dependsOn: [
 
     storageAccounts_sspassignmentstorage_name_resource
